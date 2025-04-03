@@ -28,7 +28,7 @@ async function seedTodos() {
 
 export async function GET() {
   try {
-    const result = await sql.begin((sql) => [seedTodos()]);
+    await sql.begin(() => [seedTodos()]);
 
     return Response.json({ message: "Database seeded successfully" });
   } catch (error) {
