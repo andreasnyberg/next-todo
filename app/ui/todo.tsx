@@ -1,13 +1,38 @@
 "use client";
 
 import { useState } from "react";
+import { TodoItem } from "@/app/lib/definitions";
 
-export default function Todo() {
-  const [checked, setChecked] = useState(false);
+interface TodoProps {
+  todo: TodoItem;
+  onTodoChange: (newTodo: TodoItem) => void;
+  onTodoDelete: (id: string) => void;
+}
+
+export default function Todo({ todo, onTodoChange, onTodoDelete }: TodoProps) {
+  const [inputVal, setInputVal] = useState(todo.value);
   const [inEditMode, setInEditMode] = useState(false);
 
   function toggleCheck() {
-    setChecked(!checked);
+    onTodoChange({
+      id: todo.id,
+      value: todo.value,
+      isChecked: !todo.isChecked,
+    });
+  }
+
+  function handleConfirm() {
+    onTodoChange({
+      id: todo.id,
+      value: inputVal,
+      isChecked: todo.isChecked,
+    });
+
+    setInEditMode(false);
+  }
+
+  function handleDelete() {
+    onTodoDelete(todo.id);
   }
 
   return (
@@ -15,16 +40,21 @@ export default function Todo() {
       <div className="flex items-center gap-x-3">
         <input
           type="checkbox"
-          className="form-check-input flex-shrink-0"
-          checked={checked}
+          className="form-check-input flex-shrink-0 !text-xl"
+          checked={todo.isChecked}
           onChange={toggleCheck}
         />
 
         {inEditMode ? (
-          <input type="text" className="form-control inline" />
+          <input
+            type="text"
+            className="form-control inline"
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+          />
         ) : (
           <span className="pt-1 form-checked-content">
-            <strong>hej</strong>
+            <strong>{todo.value}</strong>
           </span>
         )}
       </div>
@@ -33,7 +63,7 @@ export default function Todo() {
         {inEditMode ? (
           <button
             className="btn btn-sm h-7 !text-xs tracking-widest !font-bold btn-success"
-            onClick={() => setInEditMode(false)}
+            onClick={handleConfirm}
           >
             OK
           </button>
@@ -46,7 +76,10 @@ export default function Todo() {
           </button>
         )}
 
-        <button className="btn btn-sm btn-danger h-7 !text-xs tracking-widest !font-bold">
+        <button
+          className="btn btn-sm btn-danger h-7 !text-xs tracking-widest !font-bold"
+          onClick={handleDelete}
+        >
           X
         </button>
       </div>
