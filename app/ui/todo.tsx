@@ -11,7 +11,9 @@ interface TodoProps {
 
 export default function Todo({ todo, onTodoChange, onTodoDelete }: TodoProps) {
   const [inputVal, setInputVal] = useState(todo.value);
-  const [inEditMode, setInEditMode] = useState(false);
+  const [inEditMode, setInEditMode] = useState(
+    todo.value.length ? false : true
+  );
 
   function toggleCheck() {
     onTodoChange({
@@ -51,6 +53,7 @@ export default function Todo({ todo, onTodoChange, onTodoDelete }: TodoProps) {
             className="form-control inline"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
+            autoFocus
           />
         ) : (
           <span className="pt-1 form-checked-content">

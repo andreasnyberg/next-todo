@@ -29,7 +29,7 @@ export default function Todos() {
     const updatedTodos = todos.map((todo) => todo);
     updatedTodos.push({
       id: (todos.length + 1).toString(),
-      value: "Drink water",
+      value: "",
       isChecked: false,
     });
 
@@ -74,11 +74,13 @@ export default function Todos() {
       </div>
 
       <button
-        className="w-100 btn btn-primary btn-lg mt-4"
+        className="w-100 btn btn-secondary btn-lg mt-4"
         onClick={addNewTodo}
       >
-        ADD NEW
+        ADD NEW +
       </button>
+
+      <button className="w-100 btn btn-primary btn-lg mt-4">SAVE</button>
     </>
   );
 }
