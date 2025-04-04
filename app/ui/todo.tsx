@@ -19,7 +19,7 @@ export default function Todo({ todo, onTodoChange, onTodoDelete }: TodoProps) {
     onTodoChange({
       id: todo.id,
       value: todo.value,
-      isChecked: !todo.isChecked,
+      ischecked: !todo.ischecked,
     });
   }
 
@@ -27,7 +27,7 @@ export default function Todo({ todo, onTodoChange, onTodoDelete }: TodoProps) {
     onTodoChange({
       id: todo.id,
       value: inputVal,
-      isChecked: todo.isChecked,
+      ischecked: todo.ischecked,
     });
 
     setInEditMode(false);
@@ -43,7 +43,7 @@ export default function Todo({ todo, onTodoChange, onTodoDelete }: TodoProps) {
         <input
           type="checkbox"
           className="form-check-input flex-shrink-0 !text-xl"
-          checked={todo.isChecked}
+          checked={todo.ischecked}
           onChange={toggleCheck}
         />
 

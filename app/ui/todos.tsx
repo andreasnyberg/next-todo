@@ -4,47 +4,28 @@ import { useState } from "react";
 import Todo from "./todo";
 import { TodoItem } from "@/app/lib/definitions";
 
-const initItems: TodoItem[] = [
-  {
-    id: "1",
-    value: "Take out trash",
-    isChecked: false,
-  },
-  {
-    id: "2",
-    value: "Buy milk",
-    isChecked: false,
-  },
-  {
-    id: "3",
-    value: "Drink water",
-    isChecked: false,
-  },
-];
-
-export default function Todos() {
-  const [todos, setTodos] = useState<TodoItem[]>(initItems);
+export default function Todos({ todosProps }: { todosProps: TodoItem[] }) {
+  const [todos, setTodos] = useState<TodoItem[]>(todosProps);
 
   function addNewTodo() {
     const updatedTodos = todos.map((todo) => todo);
+
     updatedTodos.push({
       id: (todos.length + 1).toString(),
       value: "",
-      isChecked: false,
+      ischecked: false,
     });
 
     setTodos(updatedTodos);
   }
 
   function editTodo(newTodo: TodoItem) {
-    console.log("new todo:");
-
     const updatedTodos = todos.map((todo) => {
       if (todo.id === newTodo.id) {
         return {
           ...todo,
           value: newTodo.value,
-          isChecked: newTodo.isChecked,
+          ischecked: newTodo.ischecked,
         };
       }
 

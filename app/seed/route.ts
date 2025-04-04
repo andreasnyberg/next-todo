@@ -9,15 +9,15 @@ async function seedTodos() {
     CREATE TABLE IF NOT EXISTS todos (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       value VARCHAR(255) NOT NULL,
-      isChecked BOOLEAN NOT NULL
+      ischecked BOOLEAN NOT NULL
     );
   `;
 
   const insertedTodos = await Promise.all(
     initTodos.map(async (todo) => {
       return sql`
-        INSERT INTO todos (id, value, isChecked)
-        VALUES (${todo.id}, ${todo.value}, ${todo.isChecked})
+        INSERT INTO todos (id, value, ischecked)
+        VALUES (${todo.id}, ${todo.value}, ${todo.ischecked})
         ON CONFLICT (id) DO NOTHING;
       `;
     })
